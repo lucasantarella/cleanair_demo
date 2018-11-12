@@ -1,0 +1,54 @@
+<html>
+<head>
+	<title>Clean Air Act - Luca & Q</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="./node_modules/bootstrap-slider/dist/css/bootstrap-slider.min.css"/>
+	<link rel="stylesheet" href="./css/styles.css"/>
+</head>
+<body>
+<div class="container">
+	<div class="row" style="height: 60%;">
+		<img class="map" src="./img/usa.svg">
+	</div>
+	<div class="row" style="height: 20%;">
+		<div class="col-lg-12">
+			<input
+					class="slider"
+					id="ex1"
+					data-slider-id='ex1Slider'
+					type="text"
+					data-slider-min="0" data-slider-max="68"
+					data-slider-step="1"
+					data-slider-value="25"/>
+		</div>
+	</div>
+	<div class="row" style="height: 16%;">
+		<div class="date-view col-md-6">
+			1975
+		</div>
+	</div>
+</div>
+<!-- Script dependencies -->
+<script type="application/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
+<script type="application/javascript" src="./js/bootstrap.min.js"></script>
+<script type="application/javascript" src="./node_modules/bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+<script type="application/javascript" src="./node_modules/underscore/underscore-min.js"></script>
+<script type="application/javascript" src="./node_modules/backbone/backbone-min.js"></script>
+<script type="application/javascript" src="./node_modules/backbone.radio/build/backbone.radio.min.js"></script>
+<script type="application/javascript" src="./node_modules/backbone.marionette/lib/backbone.marionette.min.js"></script>
+<script type="application/javascript">
+  // Instantiate a slider
+  let dateSlider = $("input.slider").bootstrapSlider();
+  let jumbotron = $("div.date-view");
+  let basepH = 4.50;
+  let newpH = basepH;
+  dateSlider.on('change', function (event) {
+    let oldValue = event.value.oldValue;
+    let newValue = event.value.newValue;
+    jumbotron.html(1950 + newValue);
+    newpH = (basepH - (2 * newValue) / 68).toFixed(2);
+    console.log(newpH);
+  })
+</script>
+</body>
+</html>
