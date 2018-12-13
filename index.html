@@ -39,7 +39,7 @@
 			<div class="content-center brand">
 				<!--<img src="./img/usa.svg"-->
 				     <!--style="width: 150%;height: 150%;margin-left: -25%;margin-top: -25%;max-width: none;">-->
-				<svg xmlns="http://www.w3.org/2000/svg" width="959" height="593" style="margin-left: -25%;margin-top: -25%;max-width: none;">
+				<svg xmlns="http://www.w3.org/2000/svg" width="959" height="593" style="margin-left: -45%;margin-top: -25%;max-width: none;">
 					<title>Blank US states map</title>
 					<g id="outlines">
 						<path id="AK"
@@ -109,8 +109,8 @@
 					</g>
 					<path id="frames" fill="none" stroke="#A9A9A9" stroke-width="2" d="M215,493v55l36,45 M0,425h147l68,68h85l54,54v46"/>
 				</svg>
-				<h1 id="current-date" class="h1-seo" style="margin-top: 100px;">1950</h1>
-				<h1 id="current-state" class="h1-seo">Current State: NY</h1>
+				<h1 class="h1-seo" style="margin-top: 100px;"><span id="current-date">1950</span> - <span id="current-state">NY</span></h1>
+				<h2 style="margin-top: 100px;font-weight: bold;"><span id="effects"></span></h2>
 				<h3 id="ph-target"></h3>
 			</div>
 		</div>
@@ -146,18 +146,19 @@
 
     const baseYear = 1950;
     const maxYear = 2015;
-    let year = 1975;
+    let year = 1970;
     const basepH = 2.6;
     let newpH = basepH;
 
     let slider = document.getElementById('date-slider');
     let pHText = $(this).find("#ph-target");
     let yearText = $(this).find("#current-date");
+    let effectsText = $(this).find("#effects");
 
     pHText.html("Target pH: " + newpH);
 
     noUiSlider.create(slider, {
-      start: 1975,
+      start: year,
       range: {
         'min': baseYear,
         'max': maxYear
@@ -174,12 +175,28 @@
       }),
     });
     slider.noUiSlider.on('update', function (values, handle, unencoded, tap, positions) {
-      let newValue = values[0];
+      let newValue = parseInt(values[0]);
       yearText.html(newValue);
       newpH = (basepH + (2 * (newValue - baseYear)) / (maxYear - baseYear)).toFixed(2);
       pHText.html("Target pH: " + newpH);
       console.log(newpH);
       console.log(values);
+
+      // Do effects
+      if(newValue === 1950)
+        effectsText.html('1950: Midwest coal plants spewed SO2 and NOx into the air');
+
+      if(newValue === 1970)
+        effectsText.html('1970: EPA is created and the Clean Air Act passes');
+
+      if(newValue === 1990)
+        effectsText.html('1990: Clean Air Act Amendments Passes');
+
+      if(newValue === 1980)
+        effectsText.html('1980: NOx emissions have surpassed SO2 emissions');
+
+      if(newValue === 2000)
+        effectsText.html('2000: Acid Rainfall has halved since 1970');
     })
   });
 </script>
